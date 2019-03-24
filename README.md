@@ -72,7 +72,9 @@ Rezultatas 6
 Ketvirtoji eilutė iš `Strict` namespace reikalauja, kad parametrai ir grąžinamas 
 funkcijos atsakymas būtų `int` tipo. 
 Kreipinys į funkciją nukreipiamas per kitą funkciją, nes <b>strict parametras
-galioja tik šiame faile</b>. 
+galioja tik šiame faile</b>. Kreipiantis į funkciją tiesiogiai ne per tarpinę f-ją strict
+parametras neturėjo galios. Reikia kad kreipinys į f-ją būtų tame faile, kuriame jau yra įjungtas strict režimas. 
+Be to reikia režima kiekviename faile reikia įjungti atskirai.
 
 Ši funkcija iššaukia klaidą dėl tipų neatitikimo: `TypeError: Argument 2 passed to Nfq\Akademija\Strict\calculateHomeWorkSum() 
 must be of the type integer, float given` - nes antrasis parametras yra `float` tipo, po to seka klaida ir dėl trečiojo tipo, kuris yra `string`.
