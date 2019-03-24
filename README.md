@@ -4,7 +4,9 @@ NFQ akademijos paskaitos "PHP intro" namų darbas.
 Namų darbas leidžia 4 funkcijas su vienodais parametrais:
 <code>calculateHomeWorkSum(3, 2.2, '1')</code>.
 
-### Parametro `int` atitikimo principai (weak_type)
+## Parametro `int` atitikimo principai 
+Yra du paremetru atitikimo principai
+### weak_type
 Aritmetiniams veiksmams atlikti PHP automatiškai konvertuoja parametrus į sveikus ar 
 realiuosius skaičius. Jeigu skaičius yra sveikas, tai jis toks ir liks. Jeigu skaičius yra 
 realusis (su kableliu), tai jam paliekama tik sveikoji dalis (neapvalinama). Jeigu skaičius
@@ -18,22 +20,35 @@ Pilnesnė informacija [Scalar_types](https://wiki.php.net/rfc/scalar_type_hints_
 Tipo tikrinimas yra tiesioginis - tikrinamas kintamojo tipas, konversijos 
 neatliekamos, o jam neatitikus iššauks klaidą.
 
+## Funkcijų vykdymas ir rezultatas
+Rodomas keturios eilutės su funkcijos ir jos namespace bei rezultatu:
+* calculateHomeWorkSum(…$numbers); #po root namespace;
+* calculateHomeWorkSum(…$numbers): int; #po Nfq\Akademija\Not_Typed namespace;
+* calculateHomeWorkSum(int…$numbers): int; #po Nfq\Akademija\Soft namespace;
+* calculateHomeWorkSum(int…$numbers): int; #po Nfq\Akademija\Strict namespace
+
 ### Pirmoji eilutė `root`
 Pirmoji funkcija leidžiama iš `global` namespace. Funkcijos parametro tipas nėra 
 aprašytas, todėl PHP juos verčiant į 
 skaitinę ar realinę reikšmę pagal weak konversijas. Atsakymo tipas neaprašytas, tad jie tiesiog sudedami 
 ir grąžinamas rezultatas.
 
+Rezultatas 6.2
+
 ### Antroji eilutė `Not_Typed`
 Antroji eilutė iš `Not_Typed` namespace reikalauja, kad grąžinamos funkcijos atsakymas
 būtų `int` tipo. Jokios konversijos su skaitčiais nėra atliekamos (kaip ir ankstesnėje 
 eilutėje). Dabar grąžinama suma (6.2) yra verčiama į `int` tipą (6).
+
+Rezultatas 6
 
 ### Trečioji eilutė `Soft`
 Trečioji eilutė iš `Soft` namespace reikalauja, kad grąžinam funkcijas atsakymas
 būtų `int` tipo. Nurodoma, kad funkcijos parametrai turi būti `int` tipo, todėl visi 
 "skaičiai" prieš atliekant veiksmus su jais konvertuojami į `int`. 
 Atlikus aritmetiką grąžinama suma kuri jau ir taip atitiko `int` tipą.
+
+Rezultatas 6
 
 ### Ketvirtoji eilutė `Strict`
 Ketvirtoji eilutė iš `Strict` namespace reikalauja, kad parametrai ir grąžinamas 
